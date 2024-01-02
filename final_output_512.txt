@@ -1,0 +1,249 @@
+512
+trmm.py
+Execution Time: 2.77 seconds
+Parallel Execution Time: 24.28 seconds
+Vectorizable: $binop_mul172.19 = $144binary_subscr.13 * $162binary_subscr.18
+naive time:      787.7510423660278
+unrolled time:   53.55491352081299
+vectorized time: 4152.737496614456
+parallelized time: 0.4164130687713623
+transformation time: 5.938390016555786
+auto vectorized time: 5.9672698974609375
+punrolled time:   0.0178375244140625
+combined time:   0.014467477798461914
+syrk.cpp
+Execution Time: 0.41 seconds
+Parallel Execution Time: 3.21 seconds
+syrk.py
+Execution Time: 0.41 seconds
+Parallel Execution Time: 1.85 seconds
+Vectorizable: $binop_mul286.21 = $binop_mul256.15 * $276binary_subscr.20
+naive time:         1211.3202164173126
+unrolled time:     904.8109211921692
+vectorized time:  5172.29372882843
+parallelized time:0.046013832092285156
+transformation time:3.1824915409088135
+auto vectorized time:3.206653594970703
+punrolled time:    1022.6020801067352
+combined time:   0.0709676742553711
+symm.py
+Execution Time: 3.5 seconds
+Parallel Execution Time: 192.84 seconds
+Vectorizable: $binop_mul174.21 = $binop_mul152.15 * $164binary_subscr.20
+Vectorizable: $binop_mul228.34 = $200binary_subscr.28 * $218binary_subscr.33
+Vectorizable: $binop_mul306.21 = $binop_mul284.15 * $296binary_subscr.20
+naive time:      1404.680491924286
+unrolled time:   1622.6547183990479
+vectorized time: 5876.727927207947
+parallelized time: 0.8280210494995117
+transformed time: 9.938627004623413
+auto vectorized time: 10.219653129577637
+punrolled time: 0.7314891815185547
+combined time:   0.7309300899505615
+
+scontrol show job 11697664
+JobId=11697664 JobName=final_job
+   UserId=derakhsf(3132154) GroupId=kazem(6075335) MCS_label=N/A
+   Priority=1988243 Nice=0 Account=def-kazem QOS=normal
+   JobState=COMPLETING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=06:29:53 TimeLimit=10:00:00 TimeMin=N/A
+   SubmitTime=2023-12-31T15:29:33 EligibleTime=2023-12-31T15:29:33
+   AccrueTime=2023-12-31T15:29:33
+   StartTime=2023-12-31T15:29:36 EndTime=2023-12-31T21:59:29 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2023-12-31T15:29:36 Scheduler=Main
+   Partition=compute AllocNode:Sid=nia-login02:180819
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia0396
+   BatchHost=nia0396
+   NumNodes=1 NumCPUs=80 NumTasks=40 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=40,mem=175000M,node=1,billing=20
+   AllocTRES=cpu=80,mem=175000M,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=40:0:*:* CoreSpec=*
+   MinCPUsNode=40 MinMemoryNode=175000M MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final-512.sh
+   WorkDir=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project
+   Comment=/opt/slurm/bin/sbatch --export=NONE final-512.sh 
+   StdErr=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final_output_512.txt
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final_output_512.txt
+   Power=
+   MailUser=derakhsf@scinet.local MailType=FAIL
+   
+
+sacct -j 11697664
+JobID           JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+11697664      final_job  def-kazem   06:29:54                         00:00:00   00:00:00      0:0 
+11697664.ba+      batch  def-kazem   06:29:54                         00:00:00   00:00:00      0:0 
+11697664.ex+     extern  def-kazem   06:29:54                         00:00:00   00:00:00      0:0 
+
+kernel messages produced during job executions:
+[Dec31 16:35] INFO: task ET_filesystem:23267 blocked for more than 120 seconds.
+[  +0.008166] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.008938] ET_filesystem   D ffff93d9924bc200     0 23267      1 0x00000000
+[  +0.008092] Call Trace:
+[  +0.002934]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.005749]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.007873]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.006453]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.010514]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008082]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010214]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.010991]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019469]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016089]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016203]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009286]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014099]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014417]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.006989]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009108]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006484]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007546]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008213]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006672]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006659]  [<ffffffffa7061d71>] SYSC_newlstat+0x31/0x70
+[  +0.006850]  [<ffffffffa6f1c7a0>] ? SyS_futex+0x80/0x190
+[  +0.006745]  [<ffffffffa706223e>] SyS_newlstat+0xe/0x20
+[  +0.006636]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a
+[Dec31 16:37] INFO: task ET_filesystem:23267 blocked for more than 120 seconds.
+[  +0.008788] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.009560] ET_filesystem   D ffff93d9924bc200     0 23267      1 0x00000000
+[  +0.008714] Call Trace:
+[  +0.003544]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.006359]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.008487]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.007078]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.011148]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008726]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010871]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.011657]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019643]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016322]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016437]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009419]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014370]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014682]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.007118]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009242]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006645]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007683]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008344]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006780]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006760]  [<ffffffffa7061d71>] SYSC_newlstat+0x31/0x70
+[  +0.006935]  [<ffffffffa6f1c7a0>] ? SyS_futex+0x80/0x190
+[  +0.006825]  [<ffffffffa706223e>] SyS_newlstat+0xe/0x20
+[  +0.006721]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a
+[Dec31 16:39] INFO: task ET_filesystem:23267 blocked for more than 120 seconds.
+[  +0.008866] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.009617] ET_filesystem   D ffff93d9924bc200     0 23267      1 0x00000000
+[  +0.008750] Call Trace:
+[  +0.003587]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.006402]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.008520]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.007109]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.011174]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008742]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010885]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.011668]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019650]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016321]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016432]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009418]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014365]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014679]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.007117]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009243]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006621]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007683]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008343]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006776]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006760]  [<ffffffffa7061d71>] SYSC_newlstat+0x31/0x70
+[  +0.006938]  [<ffffffffa6f1c7a0>] ? SyS_futex+0x80/0x190
+[  +0.006825]  [<ffffffffa706223e>] SyS_newlstat+0xe/0x20
+[  +0.006719]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a
+[  +0.007601] INFO: task df:198988 blocked for more than 120 seconds.
+[  +0.007854] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.009592] df              D ffff93d8655d8000     0 198988      1 0x00000004
+[  +0.008840] Call Trace:
+[  +0.003579]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.006390]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.008515]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.007091]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.011177]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008738]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010882]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.011667]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019645]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016303]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016423]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009414]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014356]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014675]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.007105]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009240]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006620]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007680]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008338]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006774]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006748]  [<ffffffffa7061d0e>] SYSC_newstat+0x2e/0x60
+[  +0.006836]  [<ffffffffa706221e>] SyS_newstat+0xe/0x20
+[  +0.006624]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a
+[Dec31 16:41] INFO: task ET_filesystem:23267 blocked for more than 120 seconds.
+[  +0.008878] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.009630] ET_filesystem   D ffff93d9924bc200     0 23267      1 0x00000000
+[  +0.008760] Call Trace:
+[  +0.003588]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.006402]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.008523]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.007106]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.011170]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008741]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010880]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.011663]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019647]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016322]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016448]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009422]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014372]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014694]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.007124]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009250]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006629]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007694]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008358]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006793]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006775]  [<ffffffffa7061d71>] SYSC_newlstat+0x31/0x70
+[  +0.006952]  [<ffffffffa6f1c7a0>] ? SyS_futex+0x80/0x190
+[  +0.006839]  [<ffffffffa706223e>] SyS_newlstat+0xe/0x20
+[  +0.006726]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a
+[  +0.007615] INFO: task df:198988 blocked for more than 120 seconds.
+[  +0.007871] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[  +0.009609] df              D ffff93d8655d8000     0 198988      1 0x00000004
+[  +0.008854] Call Trace:
+[  +0.003582]  [<ffffffffa75b7ca9>] schedule+0x29/0x70
+[  +0.006394]  [<ffffffffc07db37d>] cxiWaitEventWait+0x1fd/0x330 [mmfslinux]
+[  +0.008523]  [<ffffffffa6ee1170>] ? wake_up_state+0x20/0x20
+[  +0.007094]  [<ffffffffc11d5008>] _ZN6ThCond12internalWaitEP16KernelSynchStatejPv+0x58/0x250 [mmfs26]
+[  +0.011171]  [<ffffffffc11d5643>] _ZN6ThCond5kWaitEiPKc+0x1d3/0x410 [mmfs26]
+[  +0.008740]  [<ffffffffc10d6ed0>] _ZN13KernelMailbox21sendToDaemonWithReplyEv+0x250/0x3e0 [mmfs26]
+[  +0.010878]  [<ffffffffc110902f>] _Z12kShHashFetchP15KernelOperationP8CacheObjtsiPvij+0x21f/0x250 [mmfs26]
+[  +0.011664]  [<ffffffffc10de81e>] _Z11lockGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tR7FileUIDiR13LookupDetailsR10WhatLockedPP8OpenFileP10cxiVattr_t+0xe2e/0x19c0 [mmfs26]
+[  +0.019648]  [<ffffffffc1117cdc>] _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0x10c/0x5e0 [mmfs26]
+[  +0.016313]  [<ffffffffc1117c82>] ? _Z11kSFSGetattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tiP10cxiVattr_tP12gpfs_iattr64+0xb2/0x5e0 [mmfs26]
+[  +0.016425]  [<ffffffffc07caae7>] ? cxiBlockingMutexRelease+0x87/0x100 [mmfslinux]
+[  +0.009406]  [<ffffffffc1139a56>] _Z8getVattrP15KernelOperationP13gpfsVfsData_tP10gpfsNode_tP10cxiVattr_ti+0x46/0xc0 [mmfs26]
+[  +0.014361]  [<ffffffffc1139f41>] _ZL12gpfsGetattrxP13gpfsVfsData_tP9cxiNode_tP10cxiVattr_tP12gpfs_iattr64i+0x371/0x3a0 [mmfs26]
+[  +0.014677]  [<ffffffffa70680c3>] ? lookup_fast+0xb3/0x230
+[  +0.007115]  [<ffffffffc07e87ae>] gpfs_i_getattr_internal+0x7e/0x140 [mmfslinux]
+[  +0.009230]  [<ffffffffa706e15d>] ? putname+0x3d/0x70
+[  +0.006619]  [<ffffffffa706f3b2>] ? user_path_at_empty+0x72/0xc0
+[  +0.007679]  [<ffffffffc07e88e9>] gpfs_i_getattr+0x79/0x150 [mmfslinux]
+[  +0.008340]  [<ffffffffa7061819>] vfs_getattr+0x49/0x80
+[  +0.006775]  [<ffffffffa7061925>] vfs_fstatat+0x75/0xd0
+[  +0.006758]  [<ffffffffa7061d0e>] SYSC_newstat+0x2e/0x60
+[  +0.006837]  [<ffffffffa706221e>] SyS_newstat+0xe/0x20
+[  +0.006625]  [<ffffffffa75c539a>] system_call_fastpath+0x25/0x2a

@@ -1,0 +1,78 @@
+128
+trmm.py
+Execution Time: 0.02 seconds
+Parallel Execution Time: 2.48 seconds
+Vectorizable: $binop_mul172.19 = $144binary_subscr.13 * $162binary_subscr.18
+naive time:      11.838753938674927
+unrolled time:   1.1027565002441406
+vectorized time: 65.7066719532013
+parallelized time: 0.012516498565673828
+transformation time: 0.041556596755981445
+auto vectorized time: 0.04149127006530762
+punrolled time:   0.006999015808105469
+combined time:   0.006567239761352539
+syrk.py
+Execution Time: 0 seconds
+Parallel Execution Time: 0.24 seconds
+Vectorizable: $binop_mul286.21 = $binop_mul256.15 * $276binary_subscr.20
+naive time:         17.369550466537476
+unrolled time:     13.395631790161133
+vectorized time:  82.69301414489746
+parallelized time:0.01462244987487793
+transformation time:0.022009611129760742
+auto vectorized time:0.022017717361450195
+punrolled time:    15.997178316116333
+combined time:   0.007243156433105469
+symm.py
+Execution Time: 0.03 seconds
+Parallel Execution Time: 24.9 seconds
+Vectorizable: $binop_mul174.21 = $binop_mul152.15 * $164binary_subscr.20
+Vectorizable: $binop_mul228.34 = $200binary_subscr.28 * $218binary_subscr.33
+Vectorizable: $binop_mul306.21 = $binop_mul284.15 * $296binary_subscr.20
+naive time:      20.744852781295776
+unrolled time:   22.069732189178467
+vectorized time: 93.96159315109253
+parallelized time: 0.09774422645568848
+transformed time: 0.07552933692932129
+auto vectorized time: 0.2639439105987549
+punrolled time: 0.08611536026000977
+combined time:   0.08605694770812988
+
+scontrol show job 11697666
+JobId=11697666 JobName=final_job
+   UserId=derakhsf(3132154) GroupId=kazem(6075335) MCS_label=N/A
+   Priority=1988243 Nice=0 Account=def-kazem QOS=normal
+   JobState=COMPLETING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:06:18 TimeLimit=10:00:00 TimeMin=N/A
+   SubmitTime=2023-12-31T15:30:58 EligibleTime=2023-12-31T15:30:58
+   AccrueTime=2023-12-31T15:30:58
+   StartTime=2023-12-31T15:31:01 EndTime=2023-12-31T15:37:19 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2023-12-31T15:31:01 Scheduler=Main
+   Partition=compute AllocNode:Sid=nia-login02:180819
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=nia0359
+   BatchHost=nia0359
+   NumNodes=1 NumCPUs=80 NumTasks=40 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=40,mem=175000M,node=1,billing=20
+   AllocTRES=cpu=80,mem=175000M,node=1,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=40:0:*:* CoreSpec=*
+   MinCPUsNode=40 MinMemoryNode=175000M MinTmpDiskNode=0
+   Features=[skylake|cascade] DelayBoot=00:00:00
+   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)
+   Command=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final-128.sh
+   WorkDir=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project
+   Comment=/opt/slurm/bin/sbatch --export=NONE final-128.sh 
+   StdErr=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final_output_128.txt
+   StdIn=/dev/null
+   StdOut=/gpfs/fs0/scratch/k/kazem/derakhsf/Final/Final_Project/final_output_128.txt
+   Power=
+   MailUser=derakhsf@scinet.local MailType=FAIL
+   
+
+sacct -j 11697666
+JobID           JobName    Account    Elapsed  MaxVMSize     MaxRSS  SystemCPU    UserCPU ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- ---------- ---------- -------- 
+11697666      final_job  def-kazem   00:06:18                        00:16.109  07:11.738      0:0 
+11697666.ba+      batch  def-kazem   00:06:18   8613336K    296560K  00:16.109  07:11.738      0:0 
+11697666.ex+     extern  def-kazem   00:06:18    148744K      1084K   00:00:00   00:00:00      0:0 
